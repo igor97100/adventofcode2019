@@ -1,26 +1,33 @@
 import numpy as np
 
-def main():
-    for i in range(1, 99):
-        print(i)
+class Error(Exception):
+    """Base class for exceptions in this module."""
+    pass
 
-def run_intcode(ioun, verb):
+def main():
+    #for noun in range(100):
+     #   for verb in range(100):
+      #      if(verb % 20 == 0):
+       #         print(run_intcode(noun, verb))
+    print(run_intcode(5, 10))
+
+def run_intcode(noun, verb):
     seq = init_intcode()
+    if seq[0] == 4023471:
+        print('the program was initialized correctly')
+    else:
+        raise Error('the program was not initilized correctly')
     seq[1] = noun
     seq[2] = verb
-    print(seq) 
     for i in range(0, len(seq), 4):
-
         opcode = seq[i]
         if opcode == 99:
             break
         elif opcode == 1:
             seq[seq[i+3]] = seq[seq[i+1]] + seq[seq[i+2]]
-            print(f'seq[{i+3}] became {seq[i+3]}')
         elif opcode == 2:
             seq[seq[i+3]] = seq[seq[i+1]] * seq[seq[i+2]]
         else:
-            print(f'opcode {opcode} at position {i} is invalid')
             break
     return seq[0]
  
@@ -28,18 +35,15 @@ def init_intcode():
     seq = np.loadtxt(fname = 'input', delimiter = ',', dtype= np.uint64)
     seq[1] = 12
     seq[2] = 2
-    print(seq) 
     for i in range(0, len(seq), 4):
         opcode = seq[i]
         if opcode == 99:
             break
         elif opcode == 1:
             seq[seq[i+3]] = seq[seq[i+1]] + seq[seq[i+2]]
-            print(f'seq[{i+3}] became {seq[i+3]}')
         elif opcode == 2:
             seq[seq[i+3]] = seq[seq[i+1]] * seq[seq[i+2]]
         else:
-            print(f'opcode {opcode} at position {i} is invalid')
             break
     return seq
  

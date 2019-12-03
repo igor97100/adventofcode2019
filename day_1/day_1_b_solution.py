@@ -2,12 +2,19 @@ import numpy as np
 
 def main():
     input_np = np.loadtxt(fname = "input")
-    fuels = calc_fuel(input_np)
-    print(np.sum(fuels))
+    #fuels = calc_fuel(input_np)
+    print(calc_fuel(12))
+    print(calc_fuel(1969))
+    #print(np.sum(fuels))
 
-def calc_fuel(x):
+def calc_fuel(x, fuels = np.array([])):
     fuel = x // 3 - 2 
-    return fuel
+
+    if fuel > 0:
+        fuels = np.append(fuels, fuel)
+        return calc_fuel(fuel, fuels)
+    else:
+        return np.sum(fuels)
 
 if __name__ == '__main__':
     main()

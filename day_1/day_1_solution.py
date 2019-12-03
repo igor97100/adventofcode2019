@@ -8,6 +8,7 @@ def main():
 
 def calc_mass(x):
     mass = x // 3 - 2 
+    return mass
 
 if __name__ == '__main__':
     main()

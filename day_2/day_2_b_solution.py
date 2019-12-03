@@ -9,19 +9,16 @@ def main():
      #   for verb in range(100):
       #      if(verb % 20 == 0):
        #         print(run_intcode(noun, verb))
-    print(run_intcode(5, 10))
-
-def run_intcode(noun, verb):
     seq = init_intcode()
-    if seq[0] == 4023471:
-        print('the program was initialized correctly')
-    else:
-        raise Error('the program was not initilized correctly')
+    print(run_intcode(seq, 5, 10))
+
+def run_intcode(seq, noun, verb):
     seq[1] = noun
     seq[2] = verb
     for i in range(0, len(seq), 4):
         opcode = seq[i]
         if opcode == 99:
+            print(f"the program halted at {i} iteration")
             break
         elif opcode == 1:
             seq[seq[i+3]] = seq[seq[i+1]] + seq[seq[i+2]]
@@ -45,8 +42,11 @@ def init_intcode():
             seq[seq[i+3]] = seq[seq[i+1]] * seq[seq[i+2]]
         else:
             break
+
+    if seq[0] != 4023471:
+        raise Error('the program was not initilized correctly')
+
     return seq
- 
 
 if __name__ == '__main__':
     main()

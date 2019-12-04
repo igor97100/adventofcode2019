@@ -5,20 +5,22 @@ class Error(Exception):
     pass
 
 def main():
-    #for noun in range(100):
-     #   for verb in range(100):
-      #      if(verb % 20 == 0):
-       #         print(run_intcode(noun, verb))
-    seq = init_intcode()
-    print(run_intcode(seq, 5, 10))
+    seq = np.loadtxt(fname = 'input', delimiter = ',', dtype= np.uint64)
+    for noun in range(100):
+        for verb in range(100):
+            out = run_intcode(seq, noun, verb) 
+            if(out == 19690720):
+                print(100 *  noun + verb)
+                break
+    
 
-def run_intcode(seq, noun, verb):
+def run_intcode(original_seq, noun, verb):
+    seq = np.copy(original_seq)
     seq[1] = noun
     seq[2] = verb
     for i in range(0, len(seq), 4):
         opcode = seq[i]
         if opcode == 99:
-            print(f"the program halted at {i} iteration")
             break
         elif opcode == 1:
             seq[seq[i+3]] = seq[seq[i+1]] + seq[seq[i+2]]

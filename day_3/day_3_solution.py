@@ -5,10 +5,12 @@ def main():
         wires = f.read().splitlines()
         wire0 = wires[0].split(',')
         wire1 = wires[1].split(',')
-    field1 = np.zeros((30000, 30000), dtype=int)
-    starting_point = [10000, 10000]
+    field1 = np.zeros((20, 20), dtype=int)
+    starting_point = [10, 10]
     current_point = starting_point
-    
+    wire0 = ['L8','U5','R5','D3']
+    wire1 = ['U7','L6','D4','R4']
+
     field1 = print_wire(field1, starting_point, wire0)
     field1 = print_wire(field1, starting_point, wire1)
     find2 = np.where(field1 == 2)
@@ -22,7 +24,7 @@ def main():
         distance = abs(find2_x[i] - starting_point[0]) + abs(find2_y[i] -
                                                              starting_point[1])
         distances.append(distance)
-
+    print(field1)
     print(min(distances))
 
 def print_wire(field1, starting_point, wire0):
@@ -35,7 +37,7 @@ def print_wire(field1, starting_point, wire0):
 
         if direction == "U" :
             pos1 = np.where(field1[current_point[0] - distance : current_point[0],
-                   current_point[1]] == 1)[0]
+                   current_point[1]] == 1)[0] + 1
 
             field1[current_point[0] - distance : current_point[0],
                    current_point[1]] = 1
@@ -46,7 +48,7 @@ def print_wire(field1, starting_point, wire0):
         elif direction == "D":
             pos1 = np.where(field1[current_point[0] + 1 : current_point[0]  +
                                    distance  + 1,
-                   current_point[1]] == 1)[0] + 1
+                   current_point[1]] == 1)[0] +1
 
             field1[current_point[0] + 1 : current_point[0] + distance + 1,
                    current_point[1]] = 1
@@ -56,7 +58,7 @@ def print_wire(field1, starting_point, wire0):
             current_point[0] += distance
         elif direction == "R":
             pos1 = np.where(field1[current_point[0], current_point[1] + 1: current_point[1]
-                    + distance + 1] == 1)[0] + 1
+                    + distance + 1] == 1)[0] +1
 
             field1[current_point[0], current_point[1] + 1: current_point[1]
                     + distance + 1] = 1

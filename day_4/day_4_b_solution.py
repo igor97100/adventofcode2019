@@ -35,5 +35,4 @@ for i in range(240298,784956):
         
     if incrementing_digits_count == 6 and at_least_one_couple:
         eligible_passwords += 1
-        print(i)
 print(eligible_passwords)

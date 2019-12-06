@@ -5,19 +5,30 @@ def main():
         wires = f.read().splitlines()
         wire0 = wires[0].split(',')
         wire1 = wires[1].split(',')
-    field1 = np.zeros((10, 10), dtype=int)
-    starting_point = [4, 4]
+    field1 = np.zeros((30000, 30000), dtype=int)
+    starting_point = [10000, 10000]
     current_point = starting_point
-    wire0 = ['R2','U2','L4', 'D4']
-    wire1 = ['U1','R4']
     
     field1 = print_wire(field1, starting_point, wire0)
     field1 = print_wire(field1, starting_point, wire1)
-    print(field1)
-    print(field1[starting_point[0], starting_point[1]])
+    find2 = np.where(field1 == 2)
+    zipped = np.concatenate((np.array(find2[0]), np.array(find2[1])))
+    #print(zipped)
+    find2_x = find2[0]
+    find2_y = find2[1]
+    
+    distances= []
+    for i in range(len(find2_x)):
+        distance = abs(find2_x[i] - starting_point[0]) + abs(find2_y[i] -
+                                                             starting_point[1])
+        distances.append(distance)
+
+    print(min(distances))
+
 def print_wire(field1, starting_point, wire0):
     current_point = np.copy(starting_point)
     field1[starting_point[0], starting_point[1]] = 5
+
     for path in wire0:
         direction = path[:1]
         distance = int(path[1:])

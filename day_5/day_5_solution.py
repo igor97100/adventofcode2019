@@ -28,17 +28,14 @@ def run_intcode(original_seq, only_input):
             unmerged_opcode = list(map(int, str(opcode)))
             while len(unmerged_opcode) != 5:
                 unmerged_opcode.insert(0, 0)
-            print(unmerged_opcode)
             param1 = seq[seq[i+1]] if unmerged_opcode[2] == 0 else seq[i+1]
             param2 = seq[seq[i+2]] if unmerged_opcode[1] == 0 else seq[i+2]
             param3 = seq[i+3] if unmerged_opcode[0] == 0 else i+3
             if unmerged_opcode[4] == 1:
                 seq[param3] = param1 + param2
-                print(param1, param2, param3)
             elif unmerged_opcode[4] == 2:
                 seq[param3] = param1 * param2
             else:
-                print(i, opcode)
                 print('ERROR !! Not recognized opcode')
             i+= 4
 

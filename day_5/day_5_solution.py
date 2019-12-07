@@ -6,7 +6,7 @@ class Error(Exception):
 
 
 def main():
-    input_ = np.loadtxt(fname = 'input', delimiter = ',')
+    input_ = np.loadtxt(fname = 'input', delimiter = ',', dtype=np.int64)
 
 def run_intcode(original_seq, noun, verb):
     seq = np.copy(original_seq)
